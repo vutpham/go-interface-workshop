@@ -52,6 +52,14 @@ func (d userDspData) retrieveUserInfo() userInfo {
 	return d.user
 }
 
+type dataPublisher interface {
+	publish() error
+}
+
+func (d userDspData) publish() error {
+	return nil
+}
+
 func (d userDspData) dspID() string {
 	return d.winningDSP.dspID
 }
@@ -98,14 +106,6 @@ func handleCallToDSPs(u userInfo) dsp {
 
 func aggregateUserDspData(u userInfo, d dsp) userDspData {
 	return userDspData{user: u, winningDSP: d}
-}
-
-type dataPublisher interface {
-	publish() error
-}
-
-func (d userDspData) publish() error {
-	return nil
 }
 
 func publishUserDSPData(udd dataPublisher) error {
